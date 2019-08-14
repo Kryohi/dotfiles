@@ -67,6 +67,16 @@ alias upgrade='sudo zypper dup'
 alias matlabj="MATLAB_JAVA=/usr/lib64/jvm/java-1.7.0-openjdk/jre matlab -r -nosplash &"
 alias megamount="rclone mount Mega: /home/kryohi/Video/Mega --cache-db-path=/home/kryohi/.cache/rclonedb --cache-chunk-path=/home/kryohi/.cache --vfs-cache-mode writes --cache-dir=/home/kryohi/.cache/rclonecache  --read-only --allow-non-empty --no-checksum --buffer-size 700M --stats 1s --max-read-ahead 128k"
 
+#kwriteconfig5 --file ~/.config/kwinrc --group Windows --key BorderlessMaximizedWindows true
+#qdbus org.kde.KWin /KWin reconfigure
+
+# tries to fix yakuake on arch
+if [[ $(ps --no-header -p $PPID -o comm | grep -Ev '^(yakuake)$' ) ]]; then
+    for wid in $(xdotool search --pid $PPID); do
+        xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
+fi
+
+
 
 # PATH configuration is done in ~/.profile
 
