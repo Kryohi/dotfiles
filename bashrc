@@ -4,6 +4,9 @@
 # read ~/.bashrc; in our setup, /etc/profile sources ~/.bashrc - thus all
 # settings made here will also take effect in a login shell.
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 
 export EDITOR=/usr/bin/kate     # especially useful to open as root with sudoedit, default editor becomes kate
 
