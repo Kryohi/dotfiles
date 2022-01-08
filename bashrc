@@ -5,7 +5,7 @@
 # settings made here will also take effect in a login shell.
 
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+#[[ $- != *i* ]] && return
 
 
 export EDITOR=/usr/bin/kate     # especially useful to open as root with sudoedit, default editor becomes kate
@@ -34,7 +34,10 @@ alias memorygrind="valgrind -v"
 alias memorygrindorigins="valgrind --track-origins=yes -v"
 alias callgrind="valgrind --tool=callgrind --cache-sim=yes --dump-instr=yes"
 alias python="python3"
-alias pip="pip3"
+#alias pip="pip3"
+
+## git stuff
+alias push="git add . && git status && git push -u origin"
 
 
 ## Miscellaneous shit
@@ -70,23 +73,16 @@ alias upgrade='sudo zypper dup'
 alias matlabj="MATLAB_JAVA=/usr/lib64/jvm/java-1.7.0-openjdk/jre matlab -r -nosplash &"
 alias megamount="rclone mount Mega: /home/kryohi/Video/Mega --cache-db-path=/home/kryohi/.cache/rclonedb --cache-chunk-path=/home/kryohi/.cache --vfs-cache-mode writes --cache-dir=/home/kryohi/.cache/rclonecache  --read-only --allow-non-empty --no-checksum --buffer-size 700M --stats 1s --max-read-ahead 128k"
 
-#kwriteconfig5 --file ~/.config/kwinrc --group Windows --key BorderlessMaximizedWindows true
-#qdbus org.kde.KWin /KWin reconfigure
-
-# tries to fix yakuake on arch
-if [[ $(ps --no-header -p $PPID -o comm | grep -Ev '^(yakuake)$' ) ]]; then
-    for wid in $(xdotool search --pid $PPID); do
-        xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
-fi
-
-
 
 # PATH configuration is done in ~/.profile
+PATH=$PATH:/home/kryohi/Uni/Computational_Biophysics/NAMD_Git-2019-08-29_Linux-x86_64-multicore/
+VMDDIR='/home/kryohi/Uni/Computational_Biophysics/G02-recoverin-mutation/G02-src/external/vmd-1.9.5'
+
 
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/mpi/gcc/openmpi/lib64
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/kryohi/Uni/Computational\ Physics/sharedlibs,/home/kryohi/C/libs
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/kryohi/Git/lammps/build/plumed_build-prefix/lib64
-DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/home/kryohi/Git/lammps/build/plumed_build-prefix/lib64
+DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/home/kryohi/G<it/lammps/build/plumed_build-prefix/lib64
 PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/home/kryohi/Git/lammps/build/plumed_build-prefix/lib64/pkgconfig
 
 export LD_LIBRARY_PATH
@@ -96,4 +92,20 @@ export PKG_CONFIG_PATH
 
 export JULIA_NUM_THREADS=4
 PLUMED_KERNEL=/home/kryohi/Git/lammps/build/plumed_build-prefix/lib64/libplumedKernel.so
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/kryohi/.miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/kryohi/.miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/kryohi/.miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/kryohi/.miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
